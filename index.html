@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicole Mak | My Digital Bedroom</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lavender: '#E6E6FA',
+                        butter: '#FFFDD0',
+                        navy: '#2E3A4D',
+                        blush: '#FCEBEB',
+                        error: '#D9534F'
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['Courier Prime', 'monospace'],
+                        serif: ['Lora', 'serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 4s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #E6E6FA;
+            color: #2E3A4D;
+            transition: background-color 1.2s ease, color 1.2s ease;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(46, 58, 77, 0.15);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px -10px rgba(46, 58, 77, 0.1);
+        }
+
+        /* 3D Flip Mechanics & Washi Tape */
+        .project-card-container { perspective: 1500px; }
+
+        .polaroid {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: inherit;
+        }
+
+        .polaroid-face {
+            backface-visibility: hidden;
+            background: #ffffff;
+            padding: 12px 12px 52px 12px;
+            box-shadow: 0 6px 20px rgba(46, 58, 77, 0.08);
+            border-radius: 4px;
+            border: 1px solid rgba(46, 58, 77, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .polaroid-back {
+            position: absolute;
+            inset: 0;
+            transform: rotateY(180deg);
+            background: #fdfdfd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Courier Prime', monospace;
+            padding: 20px;
+            color: rgba(46, 58, 77, 0.4);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .washi-tape {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 70px;
+            height: 26px;
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 10;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 1.2s;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.04) rotate(-1.5deg) translateY(-8px) !important;
+            z-index: 20;
+        }
+
+        .polaroid:hover .polaroid-face { box-shadow: 0 25px 50px -12px rgba(46, 58, 77, 0.2); }
+
+        .polaroid.flipping {
+            transform: rotateY(180deg) scale(1.5) !important;
+            z-index: 100;
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s 0.4s ease;
+        }
+        
+        .polaroid-img-placeholder {
+            width: 100%;
+            height: 280px;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Bedroom Wall Pattern */
+        .wallpaper-wall {
+            background-color: rgba(255, 255, 255, 0.4);
+            background-image: repeating-linear-gradient(
+                0deg, transparent, transparent 20px,
+                rgba(46, 58, 77, 0.03) 20px, rgba(46, 58, 77, 0.03) 40px
+            );
+            box-shadow: inset 0 10px 30px rgba(0,0,0,0.02), 0 20px 40px -20px rgba(0,0,0,0.05);
+            transition: all 1.2s;
+        }
+
+        /* Fairytale Book Elements */
+        .fairytale-book {
+            background-color: #FDFBF7;
+            border-radius: 4px 12px 12px 4px;
+            background-image: 
+                linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 10%, rgba(255,255,255,0) 20%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            transition: all 1.2s ease;
+        }
+        
+        .book-spine {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, 
+                transparent 0%, rgba(46, 58, 77, 0.03) 20%, 
+                rgba(46, 58, 77, 0.08) 50%, rgba(46, 58, 77, 0.03) 80%, 
+                transparent 100%);
+            z-index: 5;
+            pointer-events: none;
+            transition: all 1.2s;
+        }
+
+        .book-input {
+            background: transparent !important;
+            border: none !important;
+            border-bottom: 1px dashed rgba(46, 58, 77, 0.3) !important;
+            padding: 10px 0;
+            font-family: 'Courier Prime', monospace;
+            font-size: 16px;
+            color: #2E3A4D;
+            transition: border-color 0.3s ease, color 1.2s;
+        }
+        .book-input:focus { outline: none; border-bottom: 1px solid #2E3A4D !important; }
+        .book-input::placeholder { opacity: 0.6; }
+
+        /* Error state for inputs */
+        .input-error {
+            border-bottom: 1px dashed #D9534F !important;
+            color: #D9534F;
+        }
+        .input-error::placeholder { color: #D9534F; opacity: 0.7; }
+
+        /* Window Scenery Elements */
+        .window-frame {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: #fff;
+            border-radius: 180px 180px 16px 16px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 20px 40px -10px rgba(46,58,77,0.15);
+            overflow: hidden;
+            border: 12px solid #ffffff;
+            transition: all 1.2s ease;
+            z-index: 10;
+        }
+        .window-mullion {
+            background-color: #ffffff;
+            transition: background-color 1.2s, border-color 1.2s;
+        }
+        .profile-overlap { border-color: #ffffff; transition: border-color 1.2s; }
+
+        .scenery-layer { position: absolute; inset: 0; transition: opacity 1.2s ease; overflow: hidden; }
+        
+        /* Dawn Scenery (Enhanced Motion) */
+        @keyframes dawn-sky { 0% { background-position: 50% 100%; } 100% { background-position: 50% 0%; } }
+        .scenery-dawn { 
+            background: linear-gradient(180deg, #87CEEB 0%, #FFB7B2 60%, #FFE4E1 100%); 
+            background-size: 100% 200%;
+            animation: dawn-sky 20s ease-out forwards;
+            opacity: 1; 
+        }
+        
+        @keyframes sun-rise-pulse {
+            0% { transform: translateY(180px) scale(0.8); opacity: 0.5; background: #FF7E67; box-shadow: 0 0 20px rgba(255, 126, 103, 0.8); }
+            50% { transform: translateY(-5px) scale(1.02); opacity: 1; background: #FFF5EE; box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+            100% { transform: translateY(-10px) scale(1.05); opacity: 1; background: #FFF5EE; box-shadow: 0 0 45px rgba(255, 215, 0, 0.9); }
+        }
+        .window-sun {
+            position: absolute; top: 80px; right: 40px; width: 60px; height: 60px;
+            background: #FFF5EE; border-radius: 50%; box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+            animation: sun-rise-pulse 12s ease-out forwards, sun-pulse 6s infinite alternate 12s;
+        }
+        .window-cloud {
+            position: absolute; background: rgba(255,255,255,0.8); border-radius: 50px;
+            filter: blur(1px); animation: float-cloud linear infinite;
+        }
+        .cloud-a { width: 100px; height: 30px; top: 120px; left: -120px; animation-duration: 35s; }
+        .cloud-b { width: 150px; height: 40px; top: 180px; left: -160px; animation-duration: 50s; opacity: 0.6; }
+        
+        @keyframes sun-pulse { 0% { transform: translateY(-10px) scale(1.05); } 100% { transform: translateY(-18px) scale(1.08); } }
+        @keyframes float-cloud { 0% { transform: translateX(0); } 100% { transform: translateX(600px); } }
+
+        /* Animated Birds */
+        @keyframes flap { 0%, 100% { d: path('M2 12 Q6 8 12 12 Q18 8 22 12'); } 50% { d: path('M2 12 Q6 16 12 12 Q18 16 22 12'); } }
+        .bird-wing { animation: flap 0.8s infinite; }
+        @keyframes fly-across {
+            0% { transform: translateX(-50px) translateY(0) scale(0.6); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateX(450px) translateY(-40px) scale(0.4); opacity: 0; }
+        }
+        .bird-1 { animation: fly-across 22s linear infinite; }
+        .bird-2 { animation: fly-across 28s linear infinite 8s; }
+
+        /* Midnight Scenery (Enhanced Motion) */
+        @keyframes night-sky { 0% { background-position: 50% 0%; } 100% { background-position: 50% 100%; } }
+        .scenery-midnight { 
+            background: linear-gradient(180deg, #0B1021 0%, #1B2735 50%, #2E3A4D 100%); 
+            background-size: 100% 200%;
+            animation: night-sky 20s ease-out forwards;
+            opacity: 0; 
+        }
+        
+        @keyframes moon-rise {
+            0% { transform: translate(-30px, 120px) rotate(-20deg) scale(0.8); opacity: 0; filter: drop-shadow(0 0 5px rgba(255,253,208,0.2)); }
+            100% { transform: translate(0, -5px) rotate(0deg) scale(1); opacity: 1; filter: drop-shadow(0 0 20px rgba(255,253,208,0.6)); }
+        }
+        .window-moon {
+            position: absolute; top: 70px; left: 60px; width: 50px; height: 50px;
+            background: transparent; border-radius: 50%;
+            box-shadow: 12px 12px 0 0 #FFFDD0;
+            animation: moon-rise 10s ease-out forwards, moon-glow 6s infinite alternate 10s;
+        }
+        .star {
+            position: absolute; background: white; border-radius: 50%;
+            animation: twinkle var(--duration) infinite alternate;
+        }
+        .shooting-star {
+            position: absolute; width: 2px; height: 2px; background: white; border-radius: 50%;
+            box-shadow: 0 0 10px 2px white; animation: shoot 12s infinite; opacity: 0;
+        }
+        .shooting-star::after {
+            content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+            left: 0; width: 50px; height: 1px; background: linear-gradient(90deg, white, transparent);
+        }
+        
+        @keyframes moon-glow { 0% { filter: drop-shadow(0 0 20px rgba(255,253,208,0.6)); transform: translateY(-5px); } 100% { filter: drop-shadow(0 0 35px rgba(255,253,208,0.9)); transform: translateY(-12px); } }
+        @keyframes twinkle { 0% { opacity: 0.1; transform: scale(0.7); } 100% { opacity: 1; transform: scale(1.4); box-shadow: 0 0 4px rgba(255,255,255,0.8); } }
+        @keyframes shoot { 
+            0% { transform: translate(150px, -50px) rotate(45deg); opacity: 0; }
+            5% { transform: translate(150px, -50px) rotate(45deg); opacity: 1; }
+            15% { transform: translate(-300px, 350px) rotate(45deg); opacity: 0; }
+            100% { transform: translate(-300px, 350px) rotate(45deg); opacity: 0; }
+        }
+
+        /* Hills */
+        .scenery-dawn-hills { opacity: 1; transition: opacity 1.2s ease; }
+        .scenery-midnight-hills { opacity: 0; transition: opacity 1.2s ease; }
+
+        /* Fairy Cursor & Moon Dust */
+        * { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🧚</text></svg>") 12 12, auto !important; }
+        a, button, input, textarea, .cursor-crosshair, a *, button *, .polaroid {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🧚‍♀️</text></svg>") 12 12, pointer !important;
+        }
+
+        .moon-dust {
+            position: fixed; pointer-events: none;
+            background: radial-gradient(circle, #FFFDD0 0%, rgba(255,253,208,0) 80%);
+            box-shadow: 0 0 8px #FFFDD0, 0 0 15px rgba(255,253,208,0.6);
+            border-radius: 50%; z-index: 9999; opacity: 0.9;
+            animation: dust-fall 1.2s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        @keyframes dust-fall {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.9; }
+            100% { transform: translateY(40px) scale(0) rotate(45deg); opacity: 0; }
+        }
+
+        /* Music Player Animation */
+        #vinyl-disc { animation-play-state: paused; }
+        #vinyl-disc.playing { animation-play-state: running; }
+
+        /* Dark Mode Overrides */
+        body.lights-off { background-color: #161a23; color: #FFFDD0; }
+        body.lights-off .text-navy { color: #FFFDD0; transition: color 1.2s; }
+        body.lights-off .text-navy\/20 { color: rgba(255, 253, 208, 0.3); transition: color 1.2s; }
+        body.lights-off .text-navy\/40 { color: rgba(255, 253, 208, 0.5); transition: color 1.2s; }
+        body.lights-off .text-navy\/50 { color: rgba(255, 253, 208, 0.6); transition: color 1.2s; }
+        body.lights-off .text-navy\/60 { color: rgba(255, 253, 208, 0.7); transition: color 1.2s; }
+        body.lights-off .text-navy\/80 { color: rgba(255, 253, 208, 0.9); transition: color 1.2s; }
+        body.lights-off .bg-navy { background-color: #FFFDD0; color: #161a23; transition: all 1.2s; }
+        body.lights-off .bg-navy\/5 { background-color: rgba(255, 253, 208, 0.05); transition: background-color 1.2s; }
+        body.lights-off .border-navy { border-color: #FFFDD0; transition: border-color 1.2s; }
+        body.lights-off .border-navy\/5, body.lights-off .border-navy\/10 { border-color: rgba(255, 253, 208, 0.1); transition: border-color 1.2s; }
+        
+        body.lights-off .glass-card { background: rgba(25, 30, 42, 0.5); border-color: rgba(255, 253, 208, 0.05); }
+        body.lights-off .marquee-text { color: #161a23; transition: color 1.2s; }
+        body:not(.lights-off) .marquee-text { color: #FFFDD0; transition: color 1.2s; }
+
+        /* Dark Mode: Scenery Overrides */
+        body.lights-off .window-frame { border-color: #1a1f2b; box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 20px 40px -10px rgba(0,0,0,0.6); }
+        body.lights-off .window-mullion { background-color: #1a1f2b; border-color: #1a1f2b; }
+        body.lights-off .profile-overlap { border-color: #1a1f2b; box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
+        body.lights-off .scenery-dawn { opacity: 0; }
+        body.lights-off .scenery-dawn-hills { opacity: 0; }
+        body.lights-off .scenery-midnight { opacity: 1; }
+        body.lights-off .scenery-midnight-hills { opacity: 1; }
+
+        /* Dark Mode: Gallery Wall & Cards */
+        body.lights-off .wallpaper-wall {
+            background-color: rgba(20, 24, 33, 0.4);
+            background-image: repeating-linear-gradient( 0deg, transparent, transparent 20px, rgba(255, 253, 208, 0.01) 20px, rgba(255, 253, 208, 0.01) 40px );
+            box-shadow: inset 0 10px 30px rgba(0,0,0,0.5), 0 20px 40px -20px rgba(0,0,0,0.5); border-color: rgba(255, 253, 208, 0.05);
+        }
+        body.lights-off .washi-tape { background-color: rgba(255, 253, 208, 0.2); border-color: rgba(255, 253, 208, 0.1); box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+        body.lights-off .polaroid-face { background: #232938; border-color: rgba(255, 253, 208, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        body.lights-off .polaroid-back { background: #1a1f2b; color: rgba(255, 253, 208, 0.8); }
+        body.lights-off .polaroid-img-placeholder { filter: brightness(0.85); }
+        
+        /* Dark Mode: Guestbook */
+        body.lights-off .fairytale-book { background-color: #232938; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+        body.lights-off .book-spine { background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 80%, transparent 100%); }
+        body.lights-off .book-input { color: #FFFDD0; border-bottom-color: rgba(255, 253, 208, 0.3) !important; }
+        body.lights-off .book-input::placeholder { color: rgba(255, 253, 208, 0.3); }
+        body.lights-off .book-input:focus { border-bottom-color: #FFFDD0 !important; }
+
+        /* Dark Mode: Music Player */
+        body.lights-off #mini-disc-player .bg-navy { background-color: #1a2233; border-color: #232938; }
+        body.lights-off #mini-disc-player .bg-butter { background-color: #FFFDD0; border-color: #1a2233; }
+        body.lights-off #mini-disc-player .bg-white\/80 { background-color: rgba(22, 26, 35, 0.8); border-color: rgba(255, 253, 208, 0.1); }
+        body.lights-off #mini-disc-player .text-navy { color: #FFFDD0; }
+        body.lights-off #mini-disc-player .text-navy\/50 { color: rgba(255, 253, 208, 0.5); }
+        body.lights-off #mini-disc-player .text-navy\/80 { color: rgba(255, 253, 208, 0.8); }
+        body.lights-off #mini-disc-player svg.text-butter { color: #2E3A4D; }
+        
+        body.lights-off #project-overlay { background: rgba(22, 26, 35, 0.98); color: #FFFDD0; }
+        body.lights-off #project-overlay h3, body.lights-off #project-overlay h4, body.lights-off #project-overlay p, body.lights-off #overlay-role { color: #FFFDD0; }
+
+        /* Bedside Glow & Lamp */
+        .bedside-glow {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 75% 30%, rgba(255, 253, 208, 0.15) 0%, rgba(255, 253, 208, 0.03) 40%, transparent 80%);
+            pointer-events: none; opacity: 0; transition: opacity 1.5s ease; z-index: 0;
+        }
+        body.lights-off .bedside-glow { opacity: 1; }
+        
+        body.lights-off .lamp-light { background-color: rgba(255, 253, 208, 0.45); }
+        body.lights-off .lamp-shade { fill: #FFFDD0; filter: drop-shadow(0 0 15px rgba(255, 253, 208, 0.8)); }
+        body.lights-off .lamp-bulb { fill: #FFFDD0; filter: brightness(1.5) drop-shadow(0 0 10px #FFFDD0); }
+        body.lights-off .lamp-base { fill: #1a202c; }
+
+        /* Physical Light Switch States */
+        body.lights-off #switch-plate { background-color: #2E3A4D; border-color: rgba(255, 253, 208, 0.1); }
+        body.lights-off #switch-track { background-color: #1a2233; }
+        body.lights-off #switch-toggle { transform: translateY(100%); background-color: #FFFDD0; border-top: 2px solid rgba(0, 0, 0, 0.1); border-bottom: none; }
+        body:not(.lights-off) #switch-toggle { transform: translateY(0%); background-color: #ffffff; border-bottom: 2px solid rgba(0, 0, 0, 0.15); border-top: none; }
+
+        #project-overlay {
+            position: fixed; inset: 0; background: rgba(230, 230, 250, 0.98);
+            z-index: 100; display: none; opacity: 0;
+            transition: opacity 0.5s ease, background 1.2s ease, color 1.2s ease;
+            overflow-y: auto; backdrop-filter: blur(10px);
+        }
+        #project-overlay.active { display: block; opacity: 1; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .tag {
+            font-family: 'Courier Prime', monospace; font-size: 10px; padding: 4px 12px;
+            border-radius: 99px; background: rgba(46, 58, 77, 0.05); color: #2E3A4D;
+            text-transform: uppercase; letter-spacing: 0.1em;
+        }
+
+        html { scroll-behavior: smooth; }
+        ::selection { background-color: #2E3A4D; color: #FFFDD0; }
+
+        /* Toast Styles */
+        #form-toast {
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.5s ease, color 0.5s ease;
+            transform: translate(-50%, 20px);
+        }
+        #form-toast.toast-visible { transform: translate(-50%, 0); opacity: 1; }
+        
+        body.lights-off #form-toast.toast-success { background-color: #FFFDD0; color: #161a23; }
+        body:not(.lights-off) #form-toast.toast-success { background-color: #2E3A4D; color: #FFFDD0; }
+        
+        #form-toast.toast-error { background-color: #FCEBEB; color: #D9534F; border: 1px solid rgba(217, 83, 79, 0.3); }
+        body.lights-off #form-toast.toast-error { background-color: rgba(217, 83, 79, 0.1); color: #FFFDD0; border: 1px solid rgba(217, 83, 79, 0.5); }
+
+    </style>
+</head>
+<body class="font-sans antialiased relative min-h-screen overflow-x-hidden flex flex-col items-center">
+
+    <div class="grain-overlay"></div>
+    <div class="bedside-glow"></div>
+    <div id="dust-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden mix-blend-screen"></div>
+
+    <!-- Project Overlay -->
+    <div id="project-overlay" class="p-6 md:p-12 lg:p-20">
+        <button id="close-project" class="fixed top-8 right-8 z-[110] flex flex-col items-center gap-2 group">
+            <div class="w-12 h-12 rounded-full bg-navy text-butter flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </div>
+            <span class="font-mono text-[10px] uppercase tracking-widest font-bold text-navy group-hover:opacity-100 opacity-70">Close</span>
+        </button>
+
+        <div class="max-w-5xl mx-auto space-y-12 py-10">
+            <div id="overlay-header" class="space-y-4">
+                <p id="overlay-tag" class="font-mono text-sm tracking-[0.3em] uppercase opacity-50"></p>
+                <h2 id="overlay-title" class="text-5xl md:text-7xl font-bold tracking-tight text-navy"></h2>
+            </div>
+            
+            <div id="overlay-media" class="aspect-video glass-card overflow-hidden">
+                <img id="overlay-img" src="" alt="Project Preview" class="w-full h-full object-cover">
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 border-t border-navy/10 pt-12 text-navy">
+                <div class="md:col-span-2 space-y-6">
+                    <h3 class="font-bold text-2xl">The Story</h3>
+                    <div id="overlay-description" class="font-mono text-lg leading-relaxed opacity-80"></div>
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-2">Role</h4>
+                        <p id="overlay-role" class="font-bold"></p>
+                    </div>
+                    <div>
+                        <h4 class="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-2">Year</h4>
+                        <p id="overlay-year" class="font-bold">2024</p>
+                    </div>
+                    <button class="w-full bg-navy text-butter py-4 rounded-full font-mono text-xs uppercase tracking-widest font-bold hover:opacity-90">View Live Project ↗</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Physical Light Switch -->
+    <button id="light-switch" aria-label="Toggle Lights" class="fixed top-6 right-6 md:top-8 md:right-12 z-50 group transition-transform hover:scale-105 active:scale-95 outline-none">
+        <div id="switch-plate" class="w-10 h-16 bg-[#f5f5f5] border border-black/10 shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-md relative flex justify-center items-center transition-colors duration-500">
+            <div class="absolute top-1.5 w-1 h-1 rounded-full bg-black/20"></div>
+            <div class="absolute bottom-1.5 w-1 h-1 rounded-full bg-black/20"></div>
+            <div id="switch-track" class="w-4 h-8 bg-black/10 rounded shadow-inner relative transition-colors duration-500 overflow-hidden">
+                <div id="switch-toggle" class="absolute left-0 w-full h-1/2 rounded shadow-md transition-all duration-300"></div>
+            </div>
+        </div>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="fixed bottom-8 z-40 w-full px-6 flex justify-center pointer-events-none">
+        <div class="glass-card px-8 py-3 flex items-center gap-10 shadow-xl pointer-events-auto rounded-full bg-white/60 border-navy/10">
+            <a href="#top" class="group flex flex-col items-center gap-1.5 transition-all hover:-translate-y-1">
+                <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center border border-navy shadow-sm transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                </div>
+            </a>
+            <a href="#about" class="group flex flex-col items-center gap-1.5 transition-all hover:-translate-y-1">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors border border-transparent hover:border-navy">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </div>
+            </a>
+            <a href="#guestbook" class="group flex flex-col items-center gap-1.5 transition-all hover:-translate-y-1">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors border border-transparent hover:border-navy">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <main id="top" class="w-full max-w-6xl px-6 pt-16 pb-44">
+        
+        <!-- Hero Section -->
+        <header id="hero-header" class="glass-card p-10 md:p-20 mb-24 relative overflow-hidden group reveal">
+            <!-- Background Blobs -->
+            <div class="absolute -top-32 -right-32 w-96 h-96 bg-butter rounded-full opacity-40 blur-[100px] animate-blob"></div>
+            <div class="absolute top-20 -left-20 w-72 h-72 bg-lavender rounded-full opacity-60 blur-[80px] animate-blob" style="animation-delay: 2s"></div>
+            
+            <!-- Floating Mini-Disc Music Player -->
+            <div id="mini-disc-player" class="absolute bottom-36 right-12 md:bottom-56 md:right-40 z-30 group flex items-center gap-4 animate-float cursor-pointer">
+                <!-- Floating Track Label -->
+                <div class="bg-white/80 backdrop-blur-sm border border-navy/5 px-4 py-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0 pointer-events-none flex flex-col items-end">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-navy/50 mb-0.5">Now Playing</span>
+                    <span class="font-sans text-xs font-bold text-navy">Passing Time</span>
+                    <span class="font-mono text-[8px] uppercase text-navy/80">Filo Starquez</span>
+                </div>
+                
+                <!-- Vinyl Disc -->
+                <div class="relative w-14 h-14 rounded-full bg-navy border-[4px] border-[#2E3A4D] shadow-xl flex items-center justify-center transition-transform group-hover:scale-105 animate-spin-slow" id="vinyl-disc">
+                    <!-- Vinyl Grooves -->
+                    <div class="absolute inset-1 rounded-full border border-white/10"></div>
+                    <div class="absolute inset-2 rounded-full border border-white/10"></div>
+                    <!-- Center Hole & Label -->
+                    <div class="w-5 h-5 rounded-full bg-butter border border-navy/80 shadow-inner z-10 flex items-center justify-center">
+                        <div class="w-1.5 h-1.5 rounded-full bg-navy/90"></div>
+                    </div>
+                    
+                    <!-- Play/Pause Icons overlay -->
+                    <div class="absolute inset-0 bg-navy/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                        <svg id="play-icon" class="w-5 h-5 text-butter" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="pause-icon" class="w-5 h-5 text-butter hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </div>
+                </div>
+
+                <audio id="bg-audio" src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" loop></audio>
+            </div>
+
+            <!-- Table Lamp Illustration (Repositioned to avoid button overlap) -->
+            <div class="absolute bottom-0 right-[-20px] md:right-10 lg:right-32 w-48 md:w-64 h-56 md:h-72 z-0 flex flex-col items-center justify-end pointer-events-none opacity-80 md:opacity-100">
+                <div class="lamp-light absolute top-4 w-72 h-72 rounded-full blur-[60px] transition-all duration-1000 z-0"></div>
+                <svg viewBox="0 0 100 150" class="w-full h-full relative z-10 drop-shadow-xl translate-y-2">
+                    <path d="M 20 145 Q 50 130 80 145 L 90 150 L 10 150 Z" class="fill-navy transition-colors duration-1000 lamp-base"/>
+                    <rect x="46" y="70" width="8" height="70" class="fill-navy transition-colors duration-1000 lamp-base"/>
+                    <path d="M 30 30 L 10 75 L 90 75 L 70 30 Z" class="fill-[#f5f5f5] transition-colors duration-1000 lamp-shade" stroke="rgba(0,0,0,0.05)" stroke-width="1"/>
+                    <path d="M 45 75 v 10 q 5 5 10 0 v -10 z" class="fill-[#E6E6FA] transition-colors duration-1000 lamp-bulb"/>
+                    <circle cx="50" cy="28" r="4" class="fill-navy transition-colors duration-1000 lamp-base"/>
+                </svg>
+            </div>
+
+            <!-- Content Area constrained to not overlap the lamp on desktop -->
+            <div class="relative z-10 max-w-xl lg:max-w-2xl">
+                <div class="mb-10">
+                    <p class="font-mono text-xs md:text-sm tracking-[0.4em] uppercase mb-4 text-navy/40 flex items-center gap-3">✦ step inside ✦</p>
+                    <h2 class="font-mono text-xl md:text-2xl text-navy/60 mb-2 font-medium">Welcome to</h2>
+                    <h1 class="text-6xl md:text-8xl lg:text-[7.5rem] font-bold leading-[0.85] text-navy tracking-tight">my room</h1>
+                </div>
+                
+                <div class="space-y-6 font-mono text-navy/80 text-sm md:text-lg leading-relaxed border-l-4 border-butter pl-8">
+                    <p>I'm <strong class="text-navy font-bold">Nicole Mak</strong>, a marketing creative crafting stories that feel like home 🌙. Pull up a chair, turn on the desk lamp, and let's flip through my archive.</p>
+                </div>
+                
+                <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                    <a href="#about" class="bg-navy text-butter font-mono text-xs tracking-widest uppercase px-8 py-5 rounded-full hover:bg-navy/90 transition-all shadow-lg text-center font-bold">Get to know me</a>
+                    <a href="https://www.linkedin.com/in/cheukyingmaknicole" target="_blank" class="border border-navy/20 text-navy font-mono text-xs tracking-widest uppercase px-8 py-5 rounded-full hover:bg-butter/50 transition-all text-center font-bold">Say hello ↗</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Marquee -->
+        <div class="w-[100vw] relative left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] overflow-hidden bg-navy py-4 mb-24 -rotate-1 shadow-lg reveal">
+            <div class="whitespace-nowrap animate-marquee flex marquee-text font-mono text-xs md:text-sm tracking-[0.3em] uppercase">
+                <span class="mx-4">✦ Digital Strategy</span><span class="mx-4">✨ Illustration</span><span class="mx-4">✦ Brand Narrative</span><span class="mx-4">🌙 CRM Marketing</span>
+                <span class="mx-4">✦ Digital Strategy</span><span class="mx-4">✨ Illustration</span><span class="mx-4">✦ Brand Narrative</span><span class="mx-4">🌙 CRM Marketing</span>
+            </div>
+        </div>
+
+        <!-- About section -->
+        <section id="about" class="pt-20 mb-32 reveal">
+            <div class="flex items-center justify-between mb-16 px-4">
+                <h2 class="font-sans text-4xl font-bold tracking-tight text-navy">My Story</h2>
+                <div class="h-0.5 bg-navy/5 flex-grow ml-12"></div>
+                <span class="ml-12 font-mono text-xs text-navy/40 uppercase tracking-widest">📖 chapter one</span>
+            </div>
+
+            <div class="glass-card p-8 md:p-12 lg:p-16 flex flex-col md:flex-row gap-12 lg:gap-20 items-center md:items-start">
+                
+                <!-- Left: Interactive Window View & Profile Overlay -->
+                <div class="w-full md:w-5/12 relative mt-4 md:mt-0">
+                    
+                    <!-- Main Arch Window -->
+                    <div class="window-frame">
+                        <!-- Dawn Scenery -->
+                        <div class="scenery-layer scenery-dawn">
+                            <div class="window-sun"></div>
+                            <div class="window-cloud cloud-a"></div>
+                            <div class="window-cloud cloud-b"></div>
+                            
+                            <svg class="absolute top-24 left-0 bird-1" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(46, 58, 77, 0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12 Q6 8 12 12 Q18 8 22 12" class="bird-wing"/>
+                            </svg>
+                            <svg class="absolute top-16 left-0 bird-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(46, 58, 77, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12 Q6 8 12 12 Q18 8 22 12" class="bird-wing"/>
+                            </svg>
+                            
+                            <!-- Dawn Hills Bottom -->
+                            <div class="absolute bottom-0 w-full h-20 z-10">
+                                <svg class="absolute bottom-0 w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
+                                    <path d="M0 40 L0 20 Q25 5 50 20 T100 15 L100 40 Z" fill="#9ecfa1"/>
+                                    <path d="M0 40 L0 30 Q30 20 60 30 T100 25 L100 40 Z" fill="#7ab37e"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Midnight Scenery -->
+                        <div class="scenery-layer scenery-midnight">
+                            <div class="window-moon"></div>
+                            <div class="star" style="top: 15%; left: 20%; width: 3px; height: 3px; --duration: 2s;"></div>
+                            <div class="star" style="top: 25%; left: 70%; width: 2px; height: 2px; --duration: 3s;"></div>
+                            <div class="star" style="top: 40%; left: 40%; width: 4px; height: 4px; --duration: 2.5s;"></div>
+                            <div class="star" style="top: 10%; left: 85%; width: 2px; height: 2px; --duration: 4s;"></div>
+                            <div class="star" style="top: 50%; left: 10%; width: 3px; height: 3px; --duration: 1.5s;"></div>
+                            <div class="shooting-star"></div>
+                            
+                            <div class="window-cloud cloud-a" style="background: rgba(255,255,255,0.05); top: 100px;"></div>
+                            <div class="window-cloud cloud-b" style="background: rgba(255,255,255,0.03); top: 140px;"></div>
+
+                            <!-- Midnight Hills Bottom -->
+                            <div class="absolute bottom-0 w-full h-20 z-10">
+                                <svg class="absolute bottom-0 w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
+                                    <path d="M0 40 L0 20 Q25 5 50 20 T100 15 L100 40 Z" fill="#1e293b"/>
+                                    <path d="M0 40 L0 30 Q30 20 60 30 T100 25 L100 40 Z" fill="#0f172a"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Window Grid Overlay -->
+                        <div class="absolute inset-0 pointer-events-none z-20 flex flex-col">
+                            <div class="flex-1 border-b-[8px] window-mullion border-white"></div>
+                            <div class="flex-1"></div>
+                            <div class="absolute inset-y-0 left-1/2 w-[8px] -ml-[4px] window-mullion bg-white"></div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Photo -->
+                    <div class="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 w-32 h-32 md:w-40 md:h-40 rounded-full border-8 shadow-2xl overflow-hidden z-30 profile-overlap bg-butter">
+                        <img src="https://raw.githubusercontent.com/cymn-lab/photo-lab/main/Profile%20pic_2026.JPG" alt="Nicole Mak" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105">
+                    </div>
+                </div>
+                
+                <!-- Right: Text Content -->
+                <div class="w-full md:w-7/12 space-y-8 relative z-10 pt-4 md:pt-10">
+                    <h3 class="font-sans text-3xl lg:text-4xl font-bold text-navy leading-tight">Weaving narratives through strategy & art 🧶</h3>
+                    <div class="grid sm:grid-cols-2 gap-8 font-mono text-sm leading-relaxed text-navy/80">
+                        <p>I specialize in turning digital spaces into cozy, engaging experiences. From curating exhibits to crafting campaigns that actually feel personal, I use tools like Procreate and the Adobe Suite to bring ideas to life.</p>
+                        <p>When I'm not sketching, I'm deep diving into digital & CRM marketing—finding the sweet spots where audience engagement meets a genuine brand story.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 pt-4 border-t border-navy/10">
+                        <span class="tag">English</span><span class="tag">Cantonese</span><span class="tag">Mandarin</span>
+                        <span class="ml-auto font-mono text-[11px] text-navy/40 uppercase tracking-widest pt-2">Digital Marketing Graduate</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="moodboard" class="mt-20 reveal">
+            <div class="flex items-center justify-between mb-12 px-4">
+                <h2 class="font-sans text-4xl font-bold tracking-tight text-navy">Late-Night Ideas 💭</h2>
+                <div class="h-0.5 bg-navy/5 flex-grow ml-12"></div>
+                <span class="ml-12 font-mono text-xs text-navy/40 uppercase tracking-widest">[ 06 tapes ]</span>
+            </div>
+            
+            <p class="font-mono text-sm text-navy/60 mb-8 px-4">A collection of thoughts, designs, and strategies taped to my wall...</p>
+
+            <div class="wallpaper-wall rounded-[2rem] p-8 md:p-16 relative mb-32 group">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-12 relative z-10">
+                    
+                    <div class="project-card-container">
+                        <article class="polaroid transform rotate-1 project-card" data-project="fibu">
+                            <div class="polaroid-face">
+                                <div class="washi-tape"></div>
+                                <div class="polaroid-img-placeholder">
+                                    <img src="https://raw.githubusercontent.com/cymn-lab/photo-lab/main/fibu%20draw%20icon.jpg" alt="@fibu.draw" class="w-full h-full object-cover">
+                                </div>
+                                <div class="mt-6 text-navy">
+                                    <h3 class="font-bold text-xl tracking-tight">@fibu.draw</h3>
+                                    <p class="font-mono text-[11px] text-navy/50 mt-2 uppercase tracking-wider">Social Content • Creative</p>
+                                </div>
+                            </div>
+                            <div class="polaroid-face polaroid-back">✦ Flip over ✦</div>
+                        </article>
+                    </div>
+
+                    <div class="project-card-container">
+                        <article class="polaroid transform -rotate-2 md:mt-16 project-card" data-project="city-gallery">
+                            <div class="polaroid-face">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(3deg); background-color: rgba(255,255,255,0.7);"></div>
+                                <div class="polaroid-img-placeholder bg-[#E2ECE9] flex flex-col items-center justify-center">
+                                    <div class="text-3xl">🏛️</div>
+                                </div>
+                                <div class="mt-6 text-navy">
+                                    <h3 class="font-bold text-xl tracking-tight">HK City Gallery</h3>
+                                    <p class="font-mono text-[11px] text-navy/50 mt-2 uppercase tracking-wider">Exhibition • Copywriting</p>
+                                </div>
+                            </div>
+                            <div class="polaroid-face polaroid-back">✦ Flip over ✦</div>
+                        </article>
+                    </div>
+
+                    <div class="project-card-container">
+                        <article class="polaroid transform rotate-2 lg:mt-8 project-card" data-project="prudential">
+                            <div class="polaroid-face">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(-1deg); width: 60px;"></div>
+                                <div class="polaroid-img-placeholder bg-[#E6F2FC] flex flex-col items-center justify-center">
+                                    <div class="text-4xl">🦁</div>
+                                </div>
+                                <div class="mt-6 text-navy">
+                                    <h3 class="font-bold text-xl tracking-tight">Lion's Share</h3>
+                                    <p class="font-mono text-[11px] text-navy/50 mt-2 uppercase tracking-wider">Recruitment • Strategy</p>
+                                </div>
+                            </div>
+                            <div class="polaroid-face polaroid-back">✦ Flip over ✦</div>
+                        </article>
+                    </div>
+
+                    <div class="project-card-container">
+                        <article class="polaroid transform -rotate-1 project-card" data-project="toronto">
+                            <div class="polaroid-face">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(2deg);"></div>
+                                <div class="polaroid-img-placeholder bg-[#FFFDF0] flex flex-col items-center justify-center">
+                                    <div class="text-4xl">🇨🇦</div>
+                                </div>
+                                <div class="mt-6 text-navy">
+                                    <h3 class="font-bold text-xl tracking-tight">HKETO Toronto</h3>
+                                    <p class="font-mono text-[11px] text-navy/50 mt-2 uppercase tracking-wider">Illustration • Campaign</p>
+                                </div>
+                            </div>
+                            <div class="polaroid-face polaroid-back">✦ Flip over ✦</div>
+                        </article>
+                    </div>
+
+                    <div class="project-card-container">
+                        <article class="polaroid transform rotate-3 md:mt-12 project-card" data-project="breakup">
+                            <div class="polaroid-face">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(-4deg); width: 80px;"></div>
+                                <div class="polaroid-img-placeholder bg-[#F7F2EB] flex flex-col items-center justify-center">
+                                    <div class="text-4xl">💔</div>
+                                </div>
+                                <div class="mt-6 text-navy">
+                                    <h3 class="font-bold text-xl tracking-tight">Breakup Tours</h3>
+                                    <p class="font-mono text-[11px] text-navy/50 mt-2 uppercase tracking-wider">Poster • Brand Story</p>
+                                </div>
+                            </div>
+                            <div class="polaroid-face polaroid-back">✦ Flip over ✦</div>
+                        </article>
+                    </div>
+
+                    <div class="project-card-container">
+                        <article class="polaroid transform -rotate-2 lg:mt-4 project-card" data-project="muji">
+                            <div class="polaroid-face">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(1deg);"></div>
+                                <div class="polaroid-img-placeholder bg-[#FCEBEB] flex flex-col items-center justify-center">
+                                    <div class="text-2xl font-bold tracking-tighter text-navy/20">MUJI</div>
+                                </div>
+                                <div class="mt-6 text-navy">
+                                    <h3 class="font-bold text-xl tracking-tight">MUJI Hotel</h3>
+                                    <p class="font-mono text-[11px] text-navy/50 mt-2 uppercase tracking-wider">Logo Design • Comfort</p>
+                                </div>
+                            </div>
+                            <div class="polaroid-face polaroid-back">✦ Flip over ✦</div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guestbook (Fairytale Book) integrating Formspree API via Fetch -->
+        <section id="guestbook" class="pt-20 reveal mb-10 relative">
+            <div class="flex items-center justify-between mb-16 px-4">
+                <h2 class="font-sans text-4xl font-bold tracking-tight text-navy">My Nightstand</h2>
+                <div class="h-0.5 bg-navy/5 flex-grow ml-12"></div>
+                <span class="ml-12 font-mono text-xs text-navy/40 uppercase tracking-widest">✦ leave a trace</span>
+            </div>
+
+            <!-- Formspree Fetch Form (novalidate to handle custom aesthetic validation) -->
+            <div class="fairytale-book w-full max-w-5xl mx-auto shadow-2xl relative transform rotate-1 transition-all duration-1000 group">
+                <div class="book-spine hidden md:block"></div>
+                
+                <form id="guestbook-form" action="https://formspree.io/f/xyknrnbw" method="POST" class="flex flex-col md:flex-row w-full h-full relative z-10" novalidate>
+                    
+                    <!-- Left Page -->
+                    <div class="w-full md:w-1/2 p-10 md:p-16 lg:p-20 flex flex-col justify-center border-b md:border-b-0 md:border-r border-navy/10 relative z-10">
+                        <div class="absolute top-8 left-8 text-navy/10 font-serif text-8xl opacity-30 select-none">"</div>
+                        
+                        <h3 class="font-serif text-3xl md:text-4xl mb-6 text-navy italic relative z-10 mt-4">Dear Visitor,</h3>
+                        <p class="font-mono text-sm text-navy/60 mb-12 leading-relaxed relative z-10">
+                            You've reached the end of my archive. 🕯️ Before you switch off the lamp, I'd love to know who stopped by. Leave a little note on my nightstand...
+                        </p>
+                        
+                        <div class="space-y-8 relative z-10">
+                            <div>
+                                <input type="text" name="name" id="guest-name" placeholder="Your Name" class="book-input w-full">
+                            </div>
+                            <div>
+                                <input type="email" name="email" id="guest-email" placeholder="Where are you writing from? (Email)" class="book-input w-full">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Page -->
+                    <div class="w-full md:w-1/2 p-10 md:p-16 lg:p-20 flex flex-col justify-between relative z-10">
+                        <textarea name="message" id="guest-message" rows="6" placeholder="Drop a thought, a story, or just say hi..." class="book-input w-full h-full resize-none mb-10 mt-2"></textarea>
+                        
+                        <div class="flex justify-end relative z-10">
+                            <button id="seal-btn" type="submit" class="bg-navy text-butter font-mono text-xs tracking-widest uppercase px-10 py-5 rounded font-bold hover:bg-navy/80 hover:-translate-y-1 transition-all shadow-md flex items-center gap-3 disabled:cursor-not-allowed">
+                                <span id="seal-btn-text">Seal & Send</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Success/Error Toast Notification -->
+    <div id="form-toast" class="fixed bottom-24 left-1/2 px-8 py-4 rounded-full font-mono text-xs uppercase tracking-widest shadow-2xl opacity-0 pointer-events-none z-[120]">
+        <!-- Text injected via JS -->
+    </div>
+
+    <script>
+        // Project Data
+        const projects = {
+            'fibu': { title: '@fibu.draw', tag: 'Social Content • Creative', img: 'https://raw.githubusercontent.com/cymn-lab/photo-lab/main/fibu%20draw%20icon.jpg', role: 'Illustrator & Content Creator', desc: 'My digital sketchbook. Exploring the intersection of digital art and social storytelling, one doodle at a time.' },
+            'city-gallery': { title: 'HK City Gallery', tag: 'Exhibition • Copywriting', img: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&q=80&w=1200', role: 'Exhibition Design Intern', desc: 'Making complex urban planning feel accessible and engaging for everyone who walks through the gallery doors.' },
+            'prudential': { title: 'Lion\'s Share', tag: 'Recruitment • Strategy', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200', role: 'Marketing Strategist', desc: 'Crafting a recruitment journey that feels human. Focusing on digital outreach and brand positioning to connect with the right talent.' },
+            'toronto': { title: 'HKETO Toronto', tag: 'Illustration • Campaign', img: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&q=80&w=1200', role: 'Lead Illustrator', desc: 'Bridging cultures across the globe through illustration. Creating visual art and campaigns that speak louder than words.' },
+            'breakup': { title: 'Breakup Tours', tag: 'Poster • Brand Story', img: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200', role: 'Creative Designer', desc: 'Finding hope in heartbreak. Designing brand stories and posters that evoke nostalgia, healing, and a quiet sense of wanderlust.' },
+            'muji': { title: 'MUJI Hotel', tag: 'Logo Design • Comfort', img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?auto=format&fit=crop&q=80&w=1200', role: 'Brand Identity Designer', desc: 'A gentle exploration of minimalist branding. Capturing that "less is more" comfort through quiet typography and simple identity systems.' }
+        };
+
+        // Project Overlay Logic
+        const overlay = document.getElementById('project-overlay');
+        const closeBtn = document.getElementById('close-project');
+        let activeCard = null;
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const id = card.getAttribute('data-project');
+                const data = projects[id];
+                activeCard = card;
+                document.getElementById('overlay-title').innerText = data.title;
+                document.getElementById('overlay-tag').innerText = data.tag;
+                document.getElementById('overlay-img').src = data.img;
+                document.getElementById('overlay-description').innerText = data.desc;
+                document.getElementById('overlay-role').innerText = data.role;
+                card.classList.add('flipping');
+                setTimeout(() => { overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }, 400);
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                if (activeCard) { activeCard.classList.remove('flipping'); activeCard = null; }
+                document.body.style.overflow = '';
+            }, 500);
+        });
+
+        // Ambient Dust Effect
+        const dustContainer = document.getElementById('dust-container');
+        for (let i = 0; i < 35; i++) {
+            const dust = document.createElement('div');
+            dust.classList.add('dust');
+            dust.style.width = Math.random() * 3 + 1 + 'px';
+            dust.style.height = dust.style.width;
+            dust.style.left = Math.random() * 100 + 'vw';
+            dust.style.top = Math.random() * 100 + 100 + 'vh';
+            dust.style.animationDuration = Math.random() * 10 + 12 + 's';
+            dust.style.animationDelay = Math.random() * 10 + 's';
+            dustContainer.appendChild(dust);
+        }
+
+        // Moon Dust Cursor Trail
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() < 0.3) {
+                const dust = document.createElement('div');
+                dust.className = 'moon-dust';
+                const offsetX = (Math.random() - 0.5) * 15;
+                const offsetY = (Math.random() - 0.5) * 15;
+                dust.style.left = (e.clientX + offsetX) + 'px';
+                dust.style.top = (e.clientY + offsetY) + 'px';
+                const size = Math.random() * 4 + 2; 
+                dust.style.width = size + 'px';
+                dust.style.height = size + 'px';
+                document.body.appendChild(dust);
+                setTimeout(() => { dust.remove(); }, 1200);
+            }
+        });
+
+        // Light Switch Interaction
+        const lightSwitch = document.getElementById('light-switch');
+        let isManuallyToggled = false;
+        lightSwitch.addEventListener('click', () => {
+            isManuallyToggled = true;
+            document.body.classList.toggle('lights-off');
+        });
+
+        window.addEventListener('scroll', () => {
+            if (isManuallyToggled) return;
+            const scrollY = window.scrollY;
+            const threshold = window.innerHeight * 0.45;
+            if (scrollY < threshold) { document.body.classList.remove('lights-off'); } 
+            else { document.body.classList.add('lights-off'); }
+        });
+
+        // Reveal Animations
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); }});
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+            setTimeout(() => {
+                const hero = document.getElementById('hero-header');
+                if(hero) hero.classList.add('active');
+            }, 100);
+        });
+
+        // Music Player Interaction
+        const musicPlayer = document.getElementById('mini-disc-player');
+        const bgAudio = document.getElementById('bg-audio');
+        const vinylDisc = document.getElementById('vinyl-disc');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+
+        musicPlayer.addEventListener('click', () => {
+            if (bgAudio.paused) {
+                bgAudio.play();
+                vinylDisc.classList.add('playing');
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                bgAudio.pause();
+                vinylDisc.classList.remove('playing');
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            }
+        });
+
+        // Guestbook Formspree Fetch Submission with Custom Validation
+        const guestbookForm = document.getElementById('guestbook-form');
+        const sealBtn = document.getElementById('seal-btn');
+        const sealBtnText = document.getElementById('seal-btn-text');
+        const toast = document.getElementById('form-toast');
+        const inputs = [document.getElementById('guest-name'), document.getElementById('guest-email'), document.getElementById('guest-message')];
+
+        // Clear error styling on focus
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => input.classList.remove('input-error'));
+        });
+
+        if (guestbookForm) {
+            guestbookForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Custom Aesthetic Validation
+                let hasError = false;
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        input.classList.add('input-error');
+                        hasError = true;
+                    }
+                });
+
+                if (hasError) {
+                    showToast('✦ Please fill in all the blanks 🪶 ✦', 'error');
+                    return;
+                }
+
+                // Set Loading State
+                const originalText = sealBtnText.innerText;
+                sealBtnText.innerText = 'Sealing...';
+                sealBtn.disabled = true;
+                sealBtn.classList.add('opacity-70');
+
+                const formData = new FormData(guestbookForm);
+
+                try {
+                    const response = await fetch(guestbookForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        // Success
+                        guestbookForm.reset();
+                        showToast('Note safely sealed in the archive ✨', 'success');
+                    } else {
+                        // Formspree Error
+                        showToast('Oops... The wind blew it away. Try again? 🍂', 'error');
+                    }
+                } catch (error) {
+                    // Network Error
+                    showToast('Connection lost in the dark. Try again? 🕯️', 'error');
+                } finally {
+                    // Revert Loading State
+                    sealBtnText.innerText = originalText;
+                    sealBtn.disabled = false;
+                    sealBtn.classList.remove('opacity-70');
+                }
+            });
+        }
+
+        // Function to show/hide elegant toast
+        function showToast(message, type) {
+            toast.innerText = message;
+            
+            // Set styles based on type
+            if(type === 'error') {
+                toast.classList.remove('toast-success');
+                toast.classList.add('toast-error');
+            } else {
+                toast.classList.remove('toast-error');
+                toast.classList.add('toast-success');
+            }
+
+            toast.classList.add('toast-visible');
+            
+            setTimeout(() => {
+                toast.classList.remove('toast-visible');
+            }, 3500);
+        }
+
+    </script>
+</body>
+</html>
