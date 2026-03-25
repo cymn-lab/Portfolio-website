@@ -1,0 +1,268 @@
+        <!-- Reorganized Moodboard / Late-Night Ideas -->
+        <section id="moodboard" class="mt-20 reveal">
+            <h2 class="text-4xl md:text-5xl font-bold text-navy mb-8 text-center">Late-Night Ideas 💭</h2>
+            <p class="font-mono text-center text-navy/60 mb-10 text-sm max-w-lg mx-auto">Flip through my digital corkboard. Tap to peek behind the polaroids, and click inside to dive deeper.</p>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-3 mb-12 justify-center px-4" id="filter-container">
+                <button class="filter-btn active bg-navy text-butter px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors shadow-md" data-filter="all">All</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="illustration">Illustration</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="social">Social Media</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="campaign">Creative Campaign</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="copy">Copywriting</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="photo">Photography</button>
+            </div>
+
+            <!-- Polaroid Wall Grid -->
+            <div class="wallpaper-wall rounded-[2.5rem] p-8 md:p-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 gap-y-16" id="polaroid-grid">
+                
+                <!-- Item 1: Illustration -->
+                <article class="polaroid-wrapper" data-category="illustration">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-blush flex items-center justify-center text-6xl">🎨</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">@fibu.draw</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Illustration</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Digital Sketchbook</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">A personal catalog of character designs, color studies, and whimsical world-building.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="fibu">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 2: Social Media -->
+                <article class="polaroid-wrapper" data-category="social">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-lavender flex items-center justify-center text-6xl">📱</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">TikTok Strategy</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Social Media</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Viral Growth</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">Scaled a lifestyle brand's organic presence from zero to 50k followers in 3 months.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="tiktok">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 3: Campaign -->
+                <article class="polaroid-wrapper" data-category="campaign">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-mint flex items-center justify-center text-6xl">🏕️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">Summer Oasis '24</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Creative Campaign</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">360° Launch</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">End-to-end creative direction for a multi-channel summer product release.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="summer">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 4: Copywriting -->
+                <article class="polaroid-wrapper" data-category="copy">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-peach flex items-center justify-center text-6xl">✍️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">Sunday Letters</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Copywriting</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Email Newsletter</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">A weekly curation of thoughts, generating an average 45% open rate across subscribers.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="newsletter">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 5: Photography -->
+                <article class="polaroid-wrapper" data-category="photo">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-[#E5E5E5] flex items-center justify-center text-6xl">🎞️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">35mm Diaries</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Photography</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Analog Archive</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">Street photography and quiet urban moments captured entirely on 35mm film.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="film">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 6: Campaign -->
+                <article class="polaroid-wrapper" data-category="campaign">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-butter flex items-center justify-center text-6xl">🛍️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">SoHo Pop-Up</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Creative Campaign</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Experiential</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">Designed the physical flow and digital touchpoints for a weekend retail activation.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="popup">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+        <!-- Reorganized Moodboard / Late-Night Ideas -->
+        <section id="moodboard" class="mt-20 reveal">
+            <h2 class="text-4xl md:text-5xl font-bold text-navy mb-8 text-center">Late-Night Ideas 💭</h2>
+            <p class="font-mono text-center text-navy/60 mb-10 text-sm max-w-lg mx-auto">Flip through my digital corkboard. Tap to peek behind the polaroids, and click inside to dive deeper.</p>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap gap-3 mb-12 justify-center px-4" id="filter-container">
+                <button class="filter-btn active bg-navy text-butter px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors shadow-md" data-filter="all">All</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="illustration">Illustration</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="social">Social Media</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="campaign">Creative Campaign</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="copy">Copywriting</button>
+                <button class="filter-btn bg-white/60 backdrop-blur-sm text-navy hover:bg-white px-5 py-2.5 rounded-full font-mono text-[10px] md:text-xs uppercase tracking-widest transition-colors" data-filter="photo">Photography</button>
+            </div>
+
+            <!-- Polaroid Wall Grid -->
+            <div class="wallpaper-wall rounded-[2.5rem] p-8 md:p-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 gap-y-16" id="polaroid-grid">
+                
+                <!-- Item 1: Illustration -->
+                <article class="polaroid-wrapper" data-category="illustration">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-blush flex items-center justify-center text-6xl">🎨</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">@fibu.draw</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Illustration</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Digital Sketchbook</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">A personal catalog of character designs, color studies, and whimsical world-building.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="fibu">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 2: Social Media -->
+                <article class="polaroid-wrapper" data-category="social">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-lavender flex items-center justify-center text-6xl">📱</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">TikTok Strategy</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Social Media</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Viral Growth</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">Scaled a lifestyle brand's organic presence from zero to 50k followers in 3 months.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="tiktok">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 3: Campaign -->
+                <article class="polaroid-wrapper" data-category="campaign">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-mint flex items-center justify-center text-6xl">🏕️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">Summer Oasis '24</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Creative Campaign</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">360° Launch</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">End-to-end creative direction for a multi-channel summer product release.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="summer">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 4: Copywriting -->
+                <article class="polaroid-wrapper" data-category="copy">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-peach flex items-center justify-center text-6xl">✍️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">Sunday Letters</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Copywriting</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Email Newsletter</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">A weekly curation of thoughts, generating an average 45% open rate across subscribers.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="newsletter">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 5: Photography -->
+                <article class="polaroid-wrapper" data-category="photo">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-[#E5E5E5] flex items-center justify-center text-6xl">🎞️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">35mm Diaries</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Photography</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Analog Archive</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">Street photography and quiet urban moments captured entirely on 35mm film.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="film">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Item 6: Campaign -->
+                <article class="polaroid-wrapper" data-category="campaign">
+                    <div class="polaroid">
+                        <div class="polaroid-front">
+                            <div class="washi-tape"></div>
+                            <div class="polaroid-img-placeholder bg-butter flex items-center justify-center text-6xl">🛍️</div>
+                            <div class="mt-5 text-center">
+                                <h3 class="font-bold text-xl text-navy">SoHo Pop-Up</h3>
+                                <p class="font-mono text-[10px] opacity-50 uppercase mt-2 tracking-widest">Creative Campaign</p>
+                            </div>
+                        </div>
+                        <div class="polaroid-back">
+                            <h4 class="font-bold text-lg text-navy mb-3">Experiential</h4>
+                            <p class="font-mono text-xs text-navy/70 mb-6 leading-relaxed px-2">Designed the physical flow and digital touchpoints for a weekend retail activation.</p>
+                            <button class="view-project-btn bg-navy text-butter px-6 py-3 rounded-full font-mono text-[10px] uppercase tracking-widest font-bold hover:scale-105 transition-transform" data-project="popup">View Details ↗</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
