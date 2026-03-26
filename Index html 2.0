@@ -236,9 +236,26 @@
         .book-input::placeholder { opacity: 0.6; }
 
         /* Cursor & Music */
-        * { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🧚</text></svg>") 12 12, auto !important; }
+        /* Light Mode Cursors */
+        * { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🐝</text></svg>") 12 12, auto !important; }
         a, button, input, textarea, .cursor-crosshair, a *, button *, .project-card-container {
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🧚‍♀️</text></svg>") 12 12, pointer !important;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🍯</text></svg>") 12 12, pointer !important;
+        }
+
+        /* Dark Mode Cursors */
+        body.lights-off * { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🧚</text></svg>") 12 12, auto !important; }
+        body.lights-off a, body.lights-off button, body.lights-off input, body.lights-off textarea, body.lights-off .cursor-crosshair, body.lights-off a *, body.lights-off button *, body.lights-off .project-card-container {
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>✨</text></svg>") 12 12, pointer !important;
+        }
+
+        /* Particle Trail Styles */
+        .trail-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50%;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease-out;
+            will-change: transform, opacity;
         }
 
         #vinyl-disc { animation-play-state: paused; }
@@ -754,6 +771,7 @@
         function toggleLights() {
             document.body.classList.toggle('lights-off');
             if (document.body.classList.contains('lights-off')) {
+                // Little burst of dust on the lamp when turned off
                 createMoonDust(window.innerWidth - 100, 100);
             }
         }
@@ -792,7 +810,7 @@
             isPlaying = !isPlaying;
         });
 
-        // Dust Particle Effect
+        // Dust Particle Effect (for lamp burst)
         function createMoonDust(x, y) {
             const container = document.body;
             for(let i=0; i<15; i++) {
@@ -812,6 +830,56 @@
                 setTimeout(() => dust.remove(), 1500);
             }
         }
+
+        // Mouse Trail Logic (Bee Pollen / Fairy Dust)
+        let lastParticleTime = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            // Throttle to create roughly 1 particle every 40ms to keep performance smooth
+            if (now - lastParticleTime < 40) return;
+            lastParticleTime = now;
+
+            const isDark = document.body.classList.contains('lights-off');
+            const particle = document.createElement('div');
+            
+            // Randomize starting position slightly around the cursor
+            const size = Math.random() * 4 + 2; 
+            const offsetX = (Math.random() - 0.5) * 15;
+            const offsetY = (Math.random() - 0.5) * 15;
+            
+            particle.className = 'trail-particle';
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${e.clientX + offsetX + 6}px`; // +6 to align with cursor tip
+            particle.style.top = `${e.clientY + offsetY + 12}px`;
+            
+            if (isDark) {
+                // Fairy moon dust (Glowing white/silver)
+                particle.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                particle.style.boxShadow = '0 0 6px rgba(255, 255, 255, 0.6)';
+            } else {
+                // Bee pollen (Golden yellow)
+                particle.style.backgroundColor = 'rgba(255, 215, 0, 0.85)';
+                particle.style.boxShadow = '0 0 4px rgba(255, 200, 0, 0.5)';
+            }
+
+            document.body.appendChild(particle);
+
+            // Animate particle to drift down and fade out
+            const animX = (Math.random() - 0.5) * 40;
+            const animY = (Math.random() * 30) + 10; 
+            
+            // Force reflow
+            particle.getBoundingClientRect();
+            
+            particle.style.transform = `translate(${animX}px, ${animY}px) scale(0)`;
+            particle.style.opacity = '0';
+
+            // Clean up DOM
+            setTimeout(() => {
+                particle.remove();
+            }, 600);
+        });
 
         // Polaroid Flip
         document.querySelectorAll('.project-card-container').forEach(card => {
