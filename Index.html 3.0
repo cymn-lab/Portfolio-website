@@ -492,8 +492,8 @@
                         I'm Nicole Mak, a marketing creative crafting stories that feel like home 🌙. Pull up a chair, turn on the desk lamp, and let's flip through my archive.
                     </p>
                     <div class="flex flex-wrap items-center gap-6 pt-6">
-                        <a href="#about" class="bg-navy text-butter px-6 py-3 rounded-full font-mono text-xs uppercase tracking-widest font-bold hover:opacity-90 transition-opacity whitespace-nowrap">Get to know me</a>
-                        <a href="https://www.linkedin.com/in/cheukyingmaknicole" target="_blank" rel="noopener" class="font-mono text-xs uppercase tracking-[0.2em] font-bold text-navy border-b border-navy pb-1 hover:opacity-70 transition-opacity whitespace-nowrap">Say hello ↗</a>
+                        <a href="https://www.linkedin.com/in/cheukyingmaknicole" target="_blank" rel="noopener" class="bg-navy text-butter px-6 py-3 rounded-full font-mono text-xs uppercase tracking-widest font-bold hover:opacity-90 transition-opacity whitespace-nowrap">Get to know me</a>
+                        <a href="mailto:cymnicole65@gmail.com" class="font-mono text-xs uppercase tracking-[0.2em] font-bold text-navy border-b border-navy pb-1 hover:opacity-70 transition-opacity whitespace-nowrap">Say hello ↗</a>
                     </div>
                 </div>
 
