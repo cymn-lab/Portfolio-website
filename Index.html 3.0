@@ -420,7 +420,7 @@
                         <h4 class="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-2">Year</h4>
                         <p id="overlay-year" class="font-bold text-navy">2024</p>
                     </div>
-                    <button class="w-full bg-navy text-butter py-4 rounded-full font-mono text-xs uppercase tracking-widest font-bold hover:opacity-90 transition-opacity">Launch ↗</button>
+                    <button id="overlay-launch-btn" class="w-full bg-navy text-butter py-4 rounded-full font-mono text-xs uppercase tracking-widest font-bold hover:opacity-90 transition-opacity">Launch ↗</button>
                 </div>
             </div>
         </div>
@@ -641,160 +641,185 @@
             <div class="flex flex-wrap justify-center gap-3 mb-16">
                 <button class="filter-btn active px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="all">All</button>
                 <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="illustration">Illustration</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="social">Social Media</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="campaign">Creative Campaign</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="copywriting">Copywriting</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="photography">Photography</button>
+                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="internship">Internship</button>
+                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="school">School Project</button>
+                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="collaboration">Collaboration</button>
             </div>
 
             <!-- Moodboard Grid -->
             <div class="wallpaper-wall p-8 md:p-12 relative">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 gap-y-16" id="moodboard-grid">
 
-                    <!-- Card 1: Midnight Doodles -->
+                    <!-- Card 1: @fibu.draw Illustrations -->
                     <div class="project-card-container h-[380px] cursor-pointer" data-category="illustration">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="background-color: rgba(230,230,250,0.7);"></div>
                                 <div class="polaroid-img-placeholder flex-grow">
-                                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Midnight Doodles" loading="lazy">
+                                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="@fibu.draw" loading="lazy">
                                 </div>
-                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Midnight Doodles</div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">@fibu.draw</div>
                             </div>
                             <div class="polaroid-back">
-                                <h3 class="font-bold text-xl mb-3 text-navy">Midnight Doodles</h3>
-                                <p class="text-sm mb-6 text-navy/80 font-serif italic">A whimsical collection of digital illustrations born from 2 AM creative bursts.</p>
+                                <h3 class="font-bold text-xl mb-3 text-navy">@fibu.draw</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Personal illustration brand focused on healing and happiness in daily life.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
-                                    data-title="Midnight Doodles"
+                                    data-title="@fibu.draw"
                                     data-image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
-                                    data-desc="This project started as a simple stress-relief exercise. Using Procreate, I began sketching abstract thoughts and shapes that usually keep me up at night. What emerged was a series of surreal, dreamlike illustrations that explore the boundary between consciousness and sleep."
+                                    data-desc="My personal illustration brand features cute, minimalist characters (cats, dogs) exploring themes of healing and happiness. Created with Procreate, each piece captures the warmth of daily moments. The collection includes both line art and colored versions, with a growing community on Instagram."
                                     data-role="Illustration"
-                                    data-tag="Digital Art">
+                                    data-tag="Personal Brand">
                                     View Details
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 2: Cozy Tech Grid -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="social">
+                    <!-- Card 2: City Gallery Campaign -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="internship">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(3deg); background-color: rgba(252,235,235,0.8);"></div>
                                 <div class="polaroid-img-placeholder flex-grow">
-                                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Cozy Tech Grid" loading="lazy">
+                                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="City Gallery Campaign" loading="lazy">
                                 </div>
-                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Cozy Tech Grid</div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">City Gallery Campaign</div>
                             </div>
                             <div class="polaroid-back">
-                                <h3 class="font-bold text-xl mb-3 text-navy">Cozy Tech Grid</h3>
-                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Redefining a harsh tech startup's Instagram into an inviting, warm digital space.</p>
+                                <h3 class="font-bold text-xl mb-3 text-navy">City Gallery Campaign</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Promotional campaign for City Gallery's 25th Anniversary of HKSAR celebration.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
-                                    data-title="Cozy Tech Grid"
+                                    data-title="City Gallery Campaign"
                                     data-image="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1200&auto=format&fit=crop"
-                                    data-desc="Tasked with humanizing a B2B SaaS platform, I developed a 30-day social media strategy and visual grid. The result was a 40% increase in engagement and a brand identity that felt approachable without losing its technical credibility."
-                                    data-role="Social Media"
-                                    data-tag="Strategy & Design">
+                                    data-desc="During my internship at City Gallery, I managed a promotional campaign celebrating the 25th Anniversary of HKSAR. My role involved crafting engaging captions for Instagram and Facebook posts to enhance the gallery's social media presence and drive visitor engagement."
+                                    data-role="Social Media & Copywriting"
+                                    data-tag="Internship">
                                     View Details
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 3: Sleepy Tea Launch -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="campaign">
+                    <!-- Card 3: Lions Share HK Campaign -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="internship">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(-1deg); background-color: rgba(255,253,208,0.8);"></div>
                                 <div class="polaroid-img-placeholder flex-grow">
-                                    <img src="https://images.unsplash.com/photo-1558024920-b41e1887dc32?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Sleepy Tea Launch" loading="lazy">
+                                    <img src="https://images.unsplash.com/photo-1558024920-b41e1887dc32?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Lions Share HK" loading="lazy">
                                 </div>
-                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Sleepy Tea Launch</div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Lions Share HK Campaign</div>
                             </div>
                             <div class="polaroid-back">
-                                <h3 class="font-bold text-xl mb-3 text-navy">Sleepy Tea Launch</h3>
-                                <p class="text-sm mb-6 text-navy/80 font-serif italic">An Out-Of-Home campaign turning bus stops into interactive zen gardens.</p>
+                                <h3 class="font-bold text-xl mb-3 text-navy">Lions Share HK Campaign</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Recruitment campaign for Prudential's graduate initiative @lions.share_hk.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
-                                    data-title="Sleepy Tea Launch"
+                                    data-title="Lions Share HK Campaign"
                                     data-image="https://images.unsplash.com/photo-1558024920-b41e1887dc32?q=80&w=1200&auto=format&fit=crop"
-                                    data-desc="This conceptual campaign aimed to capture the attention of exhausted commuters with AR experiences at bus shelters. Scanning a QR code would transform the shelter into a tranquil tea garden, offering a 60-second mindfulness break and a product sample voucher."
-                                    data-role="Creative Campaign"
-                                    data-tag="OOH & Experiential">
+                                    data-desc="Led a promotional campaign for @lions.share_hk, a Prudential Insurance initiative aimed at recruiting fresh graduates. My responsibilities included designing eye-catching post graphics and crafting engaging captions for Instagram and Facebook to effectively reach and engage the target audience."
+                                    data-role="Social Media & Design"
+                                    data-tag="Internship">
                                     View Details
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 4: Night Owl Manifesto -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="copywriting">
+                    <!-- Card 4: Name Card Design -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="school">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(4deg); background-color: rgba(200,220,255,0.7);"></div>
                                 <div class="polaroid-img-placeholder flex-grow p-6 bg-[#fcfcfc] flex items-center justify-center border border-navy/5">
-                                    <p class="font-serif italic text-xl text-center leading-relaxed text-navy">"The best ideas arrive uninvited, usually past midnight."</p>
+                                    <p class="font-serif italic text-xl text-center leading-relaxed text-navy">Creative identity expressed through design</p>
                                 </div>
-                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Night Owl Manifesto</div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Name Card Design</div>
                             </div>
                             <div class="polaroid-back">
-                                <h3 class="font-bold text-xl mb-3 text-navy">Night Owl Manifesto</h3>
-                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Brand voice development and core messaging for an indie coffee roaster.</p>
+                                <h3 class="font-bold text-xl mb-3 text-navy">Name Card Design</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Personal branding through distinctive name card design.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
-                                    data-title="Night Owl Manifesto"
+                                    data-title="Name Card Design"
                                     data-image="https://images.unsplash.com/photo-1455390582262-044cdead27d8?q=80&w=1200&auto=format&fit=crop"
-                                    data-desc="A complete overhaul of an indie coffee shop's brand voice, focusing on late-night creativity and the romance of the small hours. Deliverables included a brand manifesto, tagline suite, social media copy guidelines, and packaging copy for three seasonal blends."
-                                    data-role="Copywriting"
-                                    data-tag="Brand Identity">
+                                    data-desc="In this school project, I blended my distinct personalities into a cohesive name card aesthetic. The goal was for recipients to immediately recognize me as a creative individual with a free-flowing, unconventional approach to thinking and design. Every element was carefully chosen to reflect my creative philosophy."
+                                    data-role="Graphic Design"
+                                    data-tag="School Project">
                                     View Details
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 5: Neon Cityscapes -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="photography">
+                    <!-- Card 5: Freedom of Speech Logo -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="school">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(-3deg); background-color: rgba(230,230,250,0.7);"></div>
                                 <div class="polaroid-img-placeholder flex-grow">
-                                    <img src="https://images.unsplash.com/photo-1600857398188-ee36dfcfbbde?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Neon Cityscapes" loading="lazy">
+                                    <img src="https://images.unsplash.com/photo-1600857398188-ee36dfcfbbde?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Freedom of Speech Logo" loading="lazy">
                                 </div>
-                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Neon Cityscapes</div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Freedom of Speech Logo</div>
                             </div>
                             <div class="polaroid-back">
-                                <h3 class="font-bold text-xl mb-3 text-navy">Neon Cityscapes</h3>
-                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Documenting the quiet, cinematic isolation of downtown after hours.</p>
+                                <h3 class="font-bold text-xl mb-3 text-navy">Freedom of Speech Logo</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Conceptual logo representing free expression and thought.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
-                                    data-title="Neon Cityscapes"
+                                    data-title="Freedom of Speech Logo"
                                     data-image="https://images.unsplash.com/photo-1600857398188-ee36dfcfbbde?q=80&w=1200&auto=format&fit=crop"
-                                    data-desc="An ongoing photo essay exploring the contrast between bright artificial lights and urban silence. Shot on a Sony A7III across Hong Kong and Melbourne, this series captures the melancholy beauty of empty streets and the stories they hold after midnight."
-                                    data-role="Photography"
-                                    data-tag="Editorial">
+                                    data-desc="This logo design represents the concept that individuals should freely express their thoughts in diverse ways. The design features a brain as a speech bubble with map-like pathways inside, symbolizing the flow of ideas and the various routes thoughts take as they are conveyed and shared."
+                                    data-role="Logo Design"
+                                    data-tag="School Project">
                                     View Details
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 6: Dream Textures -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="illustration">
+                    <!-- Card 6: HKETO Toronto Collaboration -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="collaboration">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(2deg); background-color: rgba(252,235,235,0.8);"></div>
                                 <div class="polaroid-img-placeholder flex-grow">
-                                    <img src="https://images.unsplash.com/photo-1578301978693-85fa9c021e09?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Dream Textures" loading="lazy">
+                                    <img src="https://images.unsplash.com/photo-1578301978693-85fa9c021e09?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="HKETO Toronto" loading="lazy">
                                 </div>
-                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Dream Textures</div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">HKETO Toronto Collab</div>
                             </div>
                             <div class="polaroid-back">
-                                <h3 class="font-bold text-xl mb-3 text-navy">Dream Textures</h3>
-                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Experimental 3D material studies mixing organic and synthetic forms.</p>
+                                <h3 class="font-bold text-xl mb-3 text-navy">HKETO Toronto Collaboration</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Chinese New Year promotional video for Hong Kong Economic and Trade Office.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
-                                    data-title="Dream Textures"
+                                    data-title="HKETO Toronto Collaboration"
                                     data-image="https://images.unsplash.com/photo-1578301978693-85fa9c021e09?q=80&w=1200&auto=format&fit=crop"
-                                    data-desc="Material studies in Blender exploring the tactile qualities of digital dreams. Each render asks: what does a memory feel like? The series blurs the line between the organic and the synthetic, using procedural textures to evoke the strange familiarity of dreamscapes."
+                                    data-desc="In collaboration with the Hong Kong Economic and Trade Office in Toronto, I provided illustrations from @fibu.draw to create a festive Chinese New Year promotional video. This project combined my illustration style with cultural storytelling to celebrate the holiday with the diaspora community in Canada."
                                     data-role="Illustration"
-                                    data-tag="3D Design">
+                                    data-tag="Collaboration">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: AGO Digital Marketing Plan -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="school">
+                        <div class="polaroid-inner">
+                            <div class="polaroid-face flex flex-col">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(-2deg); background-color: rgba(255,200,124,0.7);"></div>
+                                <div class="polaroid-img-placeholder flex-grow">
+                                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="AGO Digital Marketing" loading="lazy">
+                                </div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">AGO Digital Marketing</div>
+                            </div>
+                            <div class="polaroid-back">
+                                <h3 class="font-bold text-xl mb-3 text-navy">AGO Digital Marketing Plan</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Comprehensive digital strategy for the Art Gallery of Ontario.</p>
+                                <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
+                                    data-title="AGO Digital Marketing Plan"
+                                    data-image="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1200&auto=format&fit=crop"
+                                    data-desc="Campaign: 'Discover a Palette of Peace at AGO'. Objectives: 15% increase in conversion rate from free to paid passholders + 20% increase in email open rates. Target: Health-conscious, educated 25-27 year-olds in Greater Toronto Area. Tactics: Video ads, influencer partnerships, paid social advertising, and OOH digital programmatic."
+                                    data-role="Digital Marketing Strategy"
+                                    data-tag="School Project"
+                                    data-link="https://drive.google.com/file/d/1xe6yAqHipMCkcTYxX5OFK30GupWxUYAd/view?usp=sharing">
                                     View Details
                                 </button>
                             </div>
@@ -989,6 +1014,16 @@
                 document.getElementById('overlay-img').src                 = d.image;
                 document.getElementById('overlay-role').textContent        = d.role;
                 document.getElementById('overlay-category').textContent    = d.tag;
+                
+                const launchBtn = document.getElementById('overlay-launch-btn');
+                if (d.link) {
+                    launchBtn.onclick = () => window.open(d.link, '_blank');
+                    launchBtn.style.cursor = 'pointer';
+                } else {
+                    launchBtn.onclick = null;
+                    launchBtn.style.cursor = 'default';
+                }
+                
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
@@ -1127,6 +1162,18 @@
 
         sections.forEach(section => {
             navObserver.observe(section);
+        });
+
+        // ── Explicit Navigation Click Handlers ─────────────────────
+        document.querySelectorAll('nav a.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1); // remove #
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         });
     </script>
 </body>
