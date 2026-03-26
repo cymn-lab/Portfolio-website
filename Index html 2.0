@@ -235,6 +235,38 @@
         .book-input:focus { outline: none; border-bottom: 1px solid #2E3A4D !important; }
         .book-input::placeholder { opacity: 0.6; }
 
+        /* Custom Validation Tooltip */
+        .input-wrapper { position: relative; }
+        .validation-tooltip {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 6px;
+            padding: 6px 12px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: #FCEBEB;
+            color: #D9534F;
+            border: 1px dashed #D9534F;
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(217, 83, 79, 0.1);
+        }
+        .validation-tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .book-input.has-error {
+            border-bottom-color: #D9534F !important;
+            color: #D9534F;
+        }
+
         /* Cursor & Music */
         /* Light Mode Cursors */
         * { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='24' font-size='24'>🐝</text></svg>") 12 12, auto !important; }
@@ -263,14 +295,20 @@
 
         /* --- Dark Mode Overrides --- */
         body.lights-off { background-color: #161a23; color: #FFFDD0; }
+        
+        /* Typography color overrides for Dark Mode */
         body.lights-off .text-navy { color: #FFFDD0; transition: color 1.2s; }
-        body.lights-off .text-navy\/70 { color: rgba(255, 253, 208, 0.7); }
+        body.lights-off .text-navy\/50 { color: rgba(255, 253, 208, 0.5); transition: color 1.2s; }
+        body.lights-off .text-navy\/70 { color: rgba(255, 253, 208, 0.7); transition: color 1.2s; }
+        body.lights-off .text-navy\/80 { color: rgba(255, 253, 208, 0.8); transition: color 1.2s; }
         body.lights-off .bg-navy { background-color: #FFFDD0; color: #161a23; transition: all 1.2s; }
         
         body.lights-off .glass-card { background: rgba(25, 30, 42, 0.5); border-color: rgba(255, 253, 208, 0.05); }
 
-        /* Dark Mode: About Tags */
-        body.lights-off .about-tag { border-color: rgba(255, 253, 208, 0.3); background-color: rgba(255, 253, 208, 0.05); color: #FFFDD0; }
+        /* Dark Mode: Tags */
+        body.lights-off .tag-education { background-color: #FFFDD0; color: #161a23; }
+        body.lights-off .tag-skill { border-color: rgba(255, 253, 208, 0.5); color: #FFFDD0; background-color: rgba(255, 253, 208, 0.05); }
+        body.lights-off .tag-language { border-color: rgba(255, 253, 208, 0.3); background-color: rgba(255, 253, 208, 0.05); color: #FFFDD0; }
 
         /* Dark Mode: Filter Buttons */
         body.lights-off .filter-btn { border-color: rgba(255, 253, 208, 0.3); color: #FFFDD0; }
@@ -288,12 +326,14 @@
         body.lights-off .polaroid-back { background: #1a1f2b; color: rgba(255, 253, 208, 0.8); }
         body.lights-off .polaroid-img-placeholder { filter: brightness(0.85); }
         
-        /* Dark Mode: Guestbook */
+        /* Dark Mode: Guestbook & Validation */
         body.lights-off .fairytale-book { background-color: #232938; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
         body.lights-off .book-spine { background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 80%, transparent 100%); }
         body.lights-off .book-input { color: #FFFDD0; border-bottom-color: rgba(255, 253, 208, 0.3) !important; }
         body.lights-off .book-input::placeholder { color: rgba(255, 253, 208, 0.3); }
         body.lights-off .book-input:focus { border-bottom-color: #FFFDD0 !important; }
+        body.lights-off .validation-tooltip { background: rgba(217, 83, 79, 0.1); color: #ff8a8a; border-color: #ff8a8a; }
+        body.lights-off .book-input.has-error { border-bottom-color: #ff8a8a !important; color: #ff8a8a; }
 
         /* Physical Light Switch States */
         body.lights-off #switch-plate { background-color: #2E3A4D; border-color: rgba(255, 253, 208, 0.1); }
@@ -427,7 +467,7 @@
                         Welcome to<br/>
                         <span class="font-serif italic font-normal text-5xl md:text-6xl lg:text-7xl">my room</span>
                     </h1>
-                    <p class="text-lg md:text-xl opacity-80 max-w-md font-sans leading-relaxed text-navy">
+                    <p class="text-lg md:text-xl text-navy/80 max-w-md font-sans leading-relaxed">
                         I'm Nicole Mak, a marketing creative crafting stories that feel like home 🌙. Pull up a chair, turn on the desk lamp, and let's flip through my archive.
                     </p>
                     <div class="flex flex-wrap items-center gap-6 pt-6">
@@ -557,12 +597,29 @@
                             <p>When I'm not sketching, I'm deep diving into digital & CRM marketing—finding the sweet spots where audience engagement meets a genuine brand story.</p>
                         </div>
 
-                        <!-- Keywords/Tags -->
-                        <div class="pt-6 mt-6 flex flex-wrap gap-3">
-                            <span class="about-tag px-4 py-1.5 rounded-full border border-navy/20 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-white/40 backdrop-blur-sm transition-colors">Digital Marketing Graduate</span>
-                            <span class="about-tag px-4 py-1.5 rounded-full border border-navy/20 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-white/40 backdrop-blur-sm transition-colors">English</span>
-                            <span class="about-tag px-4 py-1.5 rounded-full border border-navy/20 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-white/40 backdrop-blur-sm transition-colors">Cantonese</span>
-                            <span class="about-tag px-4 py-1.5 rounded-full border border-navy/20 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-white/40 backdrop-blur-sm transition-colors">Mandarin</span>
+                        <!-- Categorized Keywords/Tags -->
+                        <div class="pt-6 mt-6 space-y-5">
+                            <!-- Background / Education -->
+                            <div class="flex flex-wrap gap-3 items-center">
+                                <span class="font-mono text-[10px] uppercase tracking-widest text-navy/50 w-full sm:w-24">Background</span>
+                                <span class="tag-education px-4 py-1.5 rounded-full font-mono text-[10px] sm:text-xs uppercase tracking-wider bg-navy text-butter transition-colors">Digital Marketing Graduate</span>
+                            </div>
+                            
+                            <!-- Skills / Toolkit -->
+                            <div class="flex flex-wrap gap-3 items-center">
+                                <span class="font-mono text-[10px] uppercase tracking-widest text-navy/50 w-full sm:w-24">Toolkit</span>
+                                <span class="tag-skill px-4 py-1.5 rounded-full border border-navy font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-transparent transition-colors">Adobe Suite</span>
+                                <span class="tag-skill px-4 py-1.5 rounded-full border border-navy font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-transparent transition-colors">Procreate</span>
+                                <span class="tag-skill px-4 py-1.5 rounded-full border border-navy font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-transparent transition-colors">CRM Strategy</span>
+                            </div>
+
+                            <!-- Languages -->
+                            <div class="flex flex-wrap gap-3 items-center">
+                                <span class="font-mono text-[10px] uppercase tracking-widest text-navy/50 w-full sm:w-24">Languages</span>
+                                <span class="tag-language px-4 py-1.5 rounded-md border-2 border-dashed border-navy/30 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-white/40 backdrop-blur-sm transition-colors">English</span>
+                                <span class="tag-language px-4 py-1.5 rounded-md border-2 border-dashed border-navy/30 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-white/40 backdrop-blur-sm transition-colors">Cantonese</span>
+                                <span class="tag-language px-4 py-1.5 rounded-md border-2 border-dashed border-navy/30 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-navy bg-white/40 backdrop-blur-sm transition-colors">Mandarin</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -573,7 +630,7 @@
         <section id="ideas" class="mb-32 pt-8">
             <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4 text-navy">Late-Night Ideas</h2>
-                <p class="font-serif italic text-lg opacity-80">A curated moodboard of scattered thoughts and creative experiments.</p>
+                <p class="font-serif italic text-lg text-navy/80">A curated moodboard of scattered thoughts and creative experiments.</p>
             </div>
 
             <!-- Filter Menu -->
@@ -601,7 +658,7 @@
                             </div>
                             <div class="polaroid-back">
                                 <h3 class="font-bold text-xl mb-3 text-navy">Midnight Doodles</h3>
-                                <p class="text-sm mb-6 text-navy opacity-80 font-serif italic">A whimsical collection of digital illustrations born from 2 AM creative bursts.</p>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">A whimsical collection of digital illustrations born from 2 AM creative bursts.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity" 
                                     data-title="Midnight Doodles" 
                                     data-image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" 
@@ -625,7 +682,7 @@
                             </div>
                             <div class="polaroid-back">
                                 <h3 class="font-bold text-xl mb-3 text-navy">Cozy Tech Grid</h3>
-                                <p class="text-sm mb-6 text-navy opacity-80 font-serif italic">Redefining a harsh tech startup's Instagram into an inviting, warm digital space.</p>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Redefining a harsh tech startup's Instagram into an inviting, warm digital space.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity" 
                                     data-title="Cozy Tech Grid" 
                                     data-image="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=1200&auto=format&fit=crop" 
@@ -649,7 +706,7 @@
                             </div>
                             <div class="polaroid-back">
                                 <h3 class="font-bold text-xl mb-3 text-navy">Sleepy Tea Launch</h3>
-                                <p class="text-sm mb-6 text-navy opacity-80 font-serif italic">An Out-Of-Home campaign turning bus stops into interactive zen gardens.</p>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">An Out-Of-Home campaign turning bus stops into interactive zen gardens.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity" 
                                     data-title="Sleepy Tea Launch" 
                                     data-image="https://images.unsplash.com/photo-1558024920-b41e1887dc32?q=80&w=1200&auto=format&fit=crop" 
@@ -673,7 +730,7 @@
                             </div>
                             <div class="polaroid-back">
                                 <h3 class="font-bold text-xl mb-3 text-navy">Night Owl Manifesto</h3>
-                                <p class="text-sm mb-6 text-navy opacity-80 font-serif italic">Brand voice development and core messaging for an indie coffee roaster.</p>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Brand voice development and core messaging for an indie coffee roaster.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity" 
                                     data-title="Night Owl Manifesto" 
                                     data-image="https://images.unsplash.com/photo-1455390582262-044cdead27d8?q=80&w=1200&auto=format&fit=crop" 
@@ -697,7 +754,7 @@
                             </div>
                             <div class="polaroid-back">
                                 <h3 class="font-bold text-xl mb-3 text-navy">Neon Cityscapes</h3>
-                                <p class="text-sm mb-6 text-navy opacity-80 font-serif italic">Documenting the quiet, cinematic isolation of downtown after hours.</p>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Documenting the quiet, cinematic isolation of downtown after hours.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity" 
                                     data-title="Neon Cityscapes" 
                                     data-image="https://images.unsplash.com/photo-1600857398188-ee36dfcfbbde?q=80&w=1200&auto=format&fit=crop" 
@@ -721,7 +778,7 @@
                             </div>
                             <div class="polaroid-back">
                                 <h3 class="font-bold text-xl mb-3 text-navy">Dream Textures</h3>
-                                <p class="text-sm mb-6 text-navy opacity-80 font-serif italic">Experimental 3D material studies mixing organic and synthetic forms.</p>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Experimental 3D material studies mixing organic and synthetic forms.</p>
                                 <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity" 
                                     data-title="Dream Textures" 
                                     data-image="https://images.unsplash.com/photo-1578301978693-85fa9c021e09?q=80&w=1200&auto=format&fit=crop" 
@@ -744,15 +801,16 @@
             
             <div class="fairytale-book p-8 md:p-12 relative shadow-2xl">
                 <div class="book-spine"></div>
-                <form id="guestbook-form" class="space-y-8 pl-4 md:pl-8">
+                <!-- Added novalidate to suppress default browser popups -->
+                <form id="guestbook-form" class="space-y-8 pl-4 md:pl-8" novalidate>
                     <div class="space-y-6">
-                        <div>
+                        <div class="input-wrapper">
                             <input type="text" id="visitor-name" name="name" placeholder="Who's visiting?" class="book-input w-full bg-transparent" required>
                         </div>
-                        <div>
+                        <div class="input-wrapper">
                             <input type="email" id="visitor-email" name="email" placeholder="Your email address (for my eyes only)" class="book-input w-full bg-transparent" required>
                         </div>
-                        <div>
+                        <div class="input-wrapper">
                             <textarea id="visitor-message" name="message" rows="3" placeholder="Scribble a thought, a quote, or just say hi..." class="book-input w-full bg-transparent resize-none" required></textarea>
                         </div>
                     </div>
@@ -940,13 +998,69 @@
             document.body.style.overflow = '';
         });
 
-        // Formspree Guestbook Integration
+        // Custom Form Validation & Formspree Integration
         const guestbookForm = document.getElementById('guestbook-form');
         const formStatus = document.getElementById('form-status');
+        const inputs = guestbookForm.querySelectorAll('input, textarea');
+
+        // Clear individual validation error when user types
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                input.classList.remove('has-error');
+                const tooltip = input.parentElement.querySelector('.validation-tooltip');
+                if (tooltip) {
+                    tooltip.classList.remove('show');
+                    setTimeout(() => tooltip.remove(), 300);
+                }
+            });
+        });
 
         guestbookForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Clean up any existing tooltips before checking again
+            guestbookForm.querySelectorAll('.validation-tooltip').forEach(el => el.remove());
+            inputs.forEach(input => input.classList.remove('has-error'));
+
+            let isValid = true;
+            let firstInvalid = null;
+
+            // Check each input
+            inputs.forEach(input => {
+                if (!input.validity.valid) {
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = input;
+
+                    input.classList.add('has-error');
+                    
+                    // Create the tiny sticky note tooltip
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'validation-tooltip';
+                    
+                    if (input.validity.valueMissing) {
+                        tooltip.innerHTML = "Oops! Don't forget this part ✍️";
+                    } else if (input.validity.typeMismatch && input.type === 'email') {
+                        tooltip.innerHTML = "Hmm, doesn't look like an email 💌";
+                    } else {
+                        tooltip.innerHTML = "Please check this field ✨";
+                    }
+
+                    input.parentElement.appendChild(tooltip);
+                    
+                    // Trigger the animation
+                    requestAnimationFrame(() => {
+                        tooltip.classList.add('show');
+                    });
+                }
+            });
+
+            // If form isn't valid, focus the first error and stop submission
+            if (!isValid) {
+                firstInvalid.focus();
+                return;
+            }
+
+            // --- Form is valid, proceed with submission ---
             const submitBtn = guestbookForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             
