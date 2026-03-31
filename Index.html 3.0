@@ -402,8 +402,24 @@
                 <h2 id="overlay-title" class="text-5xl md:text-7xl font-bold tracking-tight text-navy">Project Title</h2>
             </div>
 
-            <div class="aspect-video glass-card overflow-hidden">
-                <img id="overlay-img" src="" alt="Project Preview" class="w-full h-full object-cover">
+            <div id="overlay-media-container" class="glass-card overflow-hidden relative">
+                <!-- Single image/video layout -->
+                <div id="single-media" class="aspect-video">
+                    <img id="overlay-img" src="" alt="Project Preview" class="w-full h-full object-cover">
+                    <video id="overlay-video" class="w-full h-full object-cover hidden" controls controlsList="nodownload" preload="metadata">
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <!-- Dual image layout -->
+                <div id="dual-media" class="hidden grid grid-cols-2 gap-4 p-6 min-h-[400px]">
+                    <div class="flex items-center justify-center bg-navy/5 rounded-lg overflow-hidden">
+                        <img id="overlay-img-left" src="" alt="Design" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="flex items-center justify-center bg-navy/5 rounded-lg overflow-hidden">
+                        <img id="overlay-img-right" src="" alt="Caption" class="max-w-full max-h-full object-contain">
+                    </div>
+                </div>
             </div>
 
             <div class="grid md:grid-cols-3 gap-12 border-t border-navy/10 pt-12 text-navy">
@@ -640,10 +656,10 @@
             <!-- Filter Menu -->
             <div class="flex flex-wrap justify-center gap-3 mb-16">
                 <button class="filter-btn active px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="all">All</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="illustration">Illustration</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="internship">Internship</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="school">School Project</button>
-                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="collaboration">Collaboration</button>
+                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="illustrations">Illustrations</button>
+                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="social-media">Social Media</button>
+                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="branding-design">Branding & Design</button>
+                <button class="filter-btn px-6 py-2 rounded-full font-mono text-xs uppercase tracking-widest" data-filter="marketing-campaigns">Marketing & Campaigns</button>
             </div>
 
             <!-- Moodboard Grid -->
@@ -651,7 +667,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 gap-y-16" id="moodboard-grid">
 
                     <!-- Card 1: @fibu.draw Illustrations -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="illustration">
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="illustrations">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="background-color: rgba(230,230,250,0.7);"></div>
@@ -668,7 +684,8 @@
                                     data-image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
                                     data-desc="My personal illustration brand features cute, minimalist characters (cats, dogs) exploring themes of healing and happiness. Created with Procreate, each piece captures the warmth of daily moments. The collection includes both line art and colored versions, with a growing community on Instagram."
                                     data-role="Illustration"
-                                    data-tag="Personal Brand">
+                                    data-tag="Personal Brand"
+                                    data-link="https://www.instagram.com/fibu.draw?igsh=czBnbjQ4dW1ldWZk&utm_source=qr">
                                     View Details
                                 </button>
                             </div>
@@ -676,7 +693,7 @@
                     </div>
 
                     <!-- Card 2: City Gallery Campaign -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="internship">
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="social-media">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(3deg); background-color: rgba(252,235,235,0.8);"></div>
@@ -701,7 +718,7 @@
                     </div>
 
                     <!-- Card 3: Lions Share HK Campaign -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="internship">
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="social-media">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(-1deg); background-color: rgba(255,253,208,0.8);"></div>
@@ -726,7 +743,7 @@
                     </div>
 
                     <!-- Card 4: Name Card Design -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="school">
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="branding-design">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(4deg); background-color: rgba(200,220,255,0.7);"></div>
@@ -751,7 +768,7 @@
                     </div>
 
                     <!-- Card 5: Freedom of Speech Logo -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="school">
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="branding-design">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(-3deg); background-color: rgba(230,230,250,0.7);"></div>
@@ -776,7 +793,7 @@
                     </div>
 
                     <!-- Card 6: HKETO Toronto Collaboration -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="collaboration">
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="illustrations">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(2deg); background-color: rgba(252,235,235,0.8);"></div>
@@ -793,7 +810,8 @@
                                     data-image="https://images.unsplash.com/photo-1578301978693-85fa9c021e09?q=80&w=1200&auto=format&fit=crop"
                                     data-desc="In collaboration with the Hong Kong Economic and Trade Office in Toronto, I provided illustrations from @fibu.draw to create a festive Chinese New Year promotional video. This project combined my illustration style with cultural storytelling to celebrate the holiday with the diaspora community in Canada."
                                     data-role="Illustration"
-                                    data-tag="Collaboration">
+                                    data-tag="Collaboration"
+                                    data-video="hketo-video.mp4">
                                     View Details
                                 </button>
                             </div>
@@ -801,7 +819,7 @@
                     </div>
 
                     <!-- Card 7: AGO Digital Marketing Plan -->
-                    <div class="project-card-container h-[380px] cursor-pointer" data-category="school">
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="marketing-campaigns">
                         <div class="polaroid-inner">
                             <div class="polaroid-face flex flex-col">
                                 <div class="washi-tape" style="transform: translateX(-50%) rotate(-2deg); background-color: rgba(255,200,124,0.7);"></div>
@@ -820,6 +838,107 @@
                                     data-role="Digital Marketing Strategy"
                                     data-tag="School Project"
                                     data-link="https://drive.google.com/file/d/1xe6yAqHipMCkcTYxX5OFK30GupWxUYAd/view?usp=sharing">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8: BowCoffee Labor Day Post -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="social-media">
+                        <div class="polaroid-inner">
+                            <div class="polaroid-face flex flex-col">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(1deg); background-color: rgba(255,192,203,0.8);"></div>
+                                <div class="polaroid-img-placeholder flex-grow">
+                                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663481357835/UsDeVQFEkVPHMUgo.png" class="w-full h-full object-cover" alt="BowCoffee Post" loading="lazy">
+                                </div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">BowCoffee Post</div>
+                            </div>
+                            <div class="polaroid-back">
+                                <h3 class="font-bold text-xl mb-3 text-navy">BowCoffee Labor Day Post</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">Exclusive Labor Day social media post promoting ice drip coffee.</p>
+                                <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
+                                    data-title="BowCoffee Labor Day Post"
+                                    data-image="https://files.manuscdn.com/user_upload_by_module/session_file/310519663481357835/UsDeVQFEkVPHMUgo.png"
+                                    data-image-secondary="https://files.manuscdn.com/user_upload_by_module/session_file/310519663481357835/rKZoYBpALWmzQZEi.png"
+                                    data-desc="An exclusive Labor Day social media post designed for Bow Coffee, a Hong Kong specialty coffee shop. The design promotes their signature ice drip coffee with an engaging visual narrative. The post features a playful illustration of a figure enjoying a moment of respite with a coffee cup shaped like a clock, symbolizing the well-deserved break on Labor Day. The caption in Traditional Chinese encourages followers to savor the slow, meditative process of ice drip coffee brewing, emphasizing the craftsmanship and patience involved in creating the perfect cup."
+                                    data-role="Social Media Design & Copywriting"
+                                    data-tag="School Project">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 9: 50AddOil Online Rummikub Workshop -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="marketing-campaigns">
+                        <div class="polaroid-inner">
+                            <div class="polaroid-face flex flex-col">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(-2deg); background-color: rgba(230,230,250,0.7);"></div>
+                                <div class="polaroid-img-placeholder flex-grow">
+                                    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="50AddOil Rummikub" loading="lazy">
+                                </div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">50AddOil Rummikub</div>
+                            </div>
+                            <div class="polaroid-back">
+                                <h3 class="font-bold text-xl mb-3 text-navy">50AddOil Rummikub Workshop</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">A cozy digital gathering space for the young-at-heart to connect, play, and keep minds bright.</p>
+                                <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
+                                    data-title="50AddOil Online Rummikub Workshop"
+                                    data-image="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=1200&auto=format&fit=crop"
+                                    data-desc="In the quiet moments of the pandemic, the '50AddOil Online Rummikub Workshop' blossomed as a sanctuary for our vibrant 50+ community. We introduced Rummikub, a game both intriguing and intellectually stimulating, offering a delightful way to gather with friends safely from home. More than just passing time, it was an opportunity to gently train the brain, enhance memory, and foster a sense of connection. Being free of charge and akin to the beloved mahjong, it was effortlessly embraced, proving that new adventures are always within reach, no matter your age."
+                                    data-role="Campaign Strategy & Copywriting"
+                                    data-tag="School Project">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 10: WE+ Community SVHK -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="social-media">
+                        <div class="polaroid-inner">
+                            <div class="polaroid-face flex flex-col">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(3deg); background-color: rgba(252,235,235,0.8);"></div>
+                                <div class="polaroid-img-placeholder flex-grow">
+                                    <img src="https://images.unsplash.com/photo-1552674605-5defe6aa44bb?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="WE+ Community" loading="lazy">
+                                </div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">WE+ Community SVHK</div>
+                            </div>
+                            <div class="polaroid-back">
+                                <h3 class="font-bold text-xl mb-3 text-navy">WE+ Community SVHK</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">An invitation to run toward wellness and shared dreams under the glow of collective achievement.</p>
+                                <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
+                                    data-title="WE+ Community SVHK Social Media Post"
+                                    data-image="https://images.unsplash.com/photo-1552674605-5defe6aa44bb?q=80&w=1200&auto=format&fit=crop"
+                                    data-desc="For the WE+ Community by SVHK, we crafted a social media post that wasn't just an announcement, but an invitation to a shared dream: the 'Run to the Moon 2021' running class. It spoke to the quiet strength within, encouraging each member to lace up their shoes and join a collective stride towards wellness and camaraderie. The campaign aimed to light up their paths, fostering a sense of belonging and achievement as they ran, not just for distance, but for the joy of movement and the warmth of community."
+                                    data-role="Social Media & Copywriting"
+                                    data-tag="School Project">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 11: Breakup Tours OOH Campaign -->
+                    <div class="project-card-container h-[380px] cursor-pointer" data-category="marketing-campaigns">
+                        <div class="polaroid-inner">
+                            <div class="polaroid-face flex flex-col">
+                                <div class="washi-tape" style="transform: translateX(-50%) rotate(-1deg); background-color: rgba(255,200,124,0.8);"></div>
+                                <div class="polaroid-img-placeholder flex-grow">
+                                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover" alt="Breakup Tours OOH" loading="lazy">
+                                </div>
+                                <div class="mt-4 text-center font-mono text-sm font-bold text-navy">Breakup Tours OOH</div>
+                            </div>
+                            <div class="polaroid-back">
+                                <h3 class="font-bold text-xl mb-3 text-navy">Breakup Tours OOH Campaign</h3>
+                                <p class="text-sm mb-6 text-navy/80 font-serif italic">A gentle invitation to rediscover the childlike wonder and optimism within, waiting to be embraced.</p>
+                                <button class="view-details-btn bg-navy text-butter px-6 py-2 rounded-full text-xs font-mono uppercase tracking-widest hover:opacity-80 transition-opacity"
+                                    data-title="Breakup Tours OOH Campaign"
+                                    data-image="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1200&auto=format&fit=crop"
+                                    data-desc="The 'Breakup Tours OOH campaign' for 'Breakup with Myself' was designed as a series of poignant posters, each a visual poem. They beckoned onlookers to pause and reflect on the journey of self-reconnection. The core message was a tender nudge: we often lose touch with the childlike optimism and unburdened joy that once defined us. This tour, a gentle escape, promised a path to break free from the present self and lovingly embrace the inner child, fostering a profound and whimsical rediscovery of one's authentic spirit."
+                                    data-role="Poster Design & Campaign Strategy"
+                                    data-tag="School Project">
                                     View Details
                                 </button>
                             </div>
@@ -1011,9 +1130,36 @@
                 const d = btn.dataset;
                 document.getElementById('overlay-title').textContent       = d.title;
                 document.getElementById('overlay-description').textContent = d.desc;
-                document.getElementById('overlay-img').src                 = d.image;
                 document.getElementById('overlay-role').textContent        = d.role;
                 document.getElementById('overlay-category').textContent    = d.tag;
+                
+                const singleMedia = document.getElementById('single-media');
+                const dualMedia = document.getElementById('dual-media');
+                const imgEl = document.getElementById('overlay-img');
+                const videoEl = document.getElementById('overlay-video');
+                const imgLeft = document.getElementById('overlay-img-left');
+                const imgRight = document.getElementById('overlay-img-right');
+                
+                // Check if this is a dual-image project
+                if (d.imageSecondary) {
+                    singleMedia.classList.add('hidden');
+                    dualMedia.classList.remove('hidden');
+                    imgLeft.src = d.image;
+                    imgRight.src = d.imageSecondary;
+                } else if (d.video) {
+                    dualMedia.classList.add('hidden');
+                    singleMedia.classList.remove('hidden');
+                    imgEl.classList.add('hidden');
+                    videoEl.classList.remove('hidden');
+                    videoEl.querySelector('source').src = d.video;
+                    videoEl.load();
+                } else {
+                    dualMedia.classList.add('hidden');
+                    singleMedia.classList.remove('hidden');
+                    videoEl.classList.add('hidden');
+                    imgEl.classList.remove('hidden');
+                    imgEl.src = d.image;
+                }
                 
                 const launchBtn = document.getElementById('overlay-launch-btn');
                 if (d.link) {
